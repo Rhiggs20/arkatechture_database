@@ -1,0 +1,91 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "UndefinedTable",
+     "evalue": "relation \"tripinfo\" does not exist\n",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mUndefinedTable\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-12-8df245a067e3>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m     28\u001b[0m \u001b[0;32mwith\u001b[0m \u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'salesdata.csv'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'r'\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mrow\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     29\u001b[0m     \u001b[0mnext\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrow\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 30\u001b[0;31m     \u001b[0mcursor\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcopy_from\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mrow\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'tripInfo'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msep\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m','\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     31\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     32\u001b[0m \u001b[0mconnection\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcommit\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mUndefinedTable\u001b[0m: relation \"tripinfo\" does not exist\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Imports\n",
+    "import psycopg2\n",
+    "\n",
+    "#Setup Connection\n",
+    "connection = psycopg2.connect(\n",
+    "    host = 'arkatechture-assignment.chzhrd21j2xp.us-east-2.rds.amazonaws.com',\n",
+    "    port = 5432,\n",
+    "    user = 'arka_admin',\n",
+    "    password = 'arkaadmin',\n",
+    "    database='arkatechture_assignment'\n",
+    "    )\n",
+    "cursor=connection.cursor()\n",
+    "\n",
+    "#Create Table with SQL Commands \n",
+    "cursor.execute(\"\"\"CREATE TABLE sales_data(\n",
+    "sales_person SERIAL PRIMARY KEY,\n",
+    "sales_department text,\n",
+    "quantity integer,\n",
+    "street text,\n",
+    "city text,\n",
+    "state text,\n",
+    "item_id text,\n",
+    "date text)\"\"\")\n",
+    "\n",
+    "connection.commit()\n",
+    "\n",
+    "#Copy in data from csv\n",
+    "with open('salesdata.csv', 'r') as row:\n",
+    "    next(row)\n",
+    "    cursor.copy_from(row, 'tripInfo', sep=',')\n",
+    "    \n",
+    "connection.commit()    \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.6"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
