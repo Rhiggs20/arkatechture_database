@@ -1,0 +1,14 @@
+Ryley Higgins
+Arkatechture Engineering Assignment 
+Aug. 2020
+
+See 'arkatechture_createData' file for code corresponding to prepping data for upload into database.
+
+See 'arkatechture_output' file for code containing SQL queries used to determine the following according to assignment:
+
+ - Sales person with highest sales
+ - Sales department with highest sales in 2017
+ - Average sales per month for all employees
+ - Total sales amount for each sales person in descending order
+
+See 'answers' folder for CSV responses to the above statements. 
